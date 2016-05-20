@@ -81,6 +81,6 @@ def lambda_handler(event, context):
     user = params['user_name'][0]
     command = params['command'][0]
     channel = params['channel_name'][0]
-    command_text = params['text'][0]
+#    command_text = params['text'][0]
 
-    return "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text)
+    return "%s invoked %s in %s" % (user, command, channel)
