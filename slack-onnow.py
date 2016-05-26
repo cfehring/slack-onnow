@@ -63,6 +63,12 @@ from urlparse import parse_qs
 import logging
 import requests #Digital recommends the request lib to interact w/ apis over http. http://docs.python-requests.org/
 import sys # for sys.argv to pass arguments from command line
+#import slackweb
+# import json
+# from urllib2 import Request, urlopen, URLError, HTTPError
+# from urllib import urlencode
+#import slacker
+
 
 ENCRYPTED_EXPECTED_TOKEN = "CiDwhvH0HpF1WdM/Qj2SO8kDmtA9FMF7ZIZN8ambj2J3gRKfAQEBAgB48Ibx9B6RdVnTP0I9kjvJA5rQPRTBe2SGTfGpm49id4EAAAB2MHQGCSqGSIb3DQEHBqBnMGUCAQAwYAYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAyjjtXp0tXAwOk3J9wCARCAMxstVfCsQUyB8g0ZnEuRs1rb6Fbor5JusgRbHuKJc6HsWDWr2vQGnBU05JowdV1mP0L5yQ==" # Enter the base-64 encoded, encrypted Slack command token (CiphertextBlob)
 
@@ -158,4 +164,17 @@ def lambda_handler(event, context):
         return_url = onnow_get_response['programs'][0]['url']
     else:
         return_url = override_url
-    return "{}: {}".format(net_name,return_url)
+#    eol = \n
+
+    link = "{}: <{}>".format(net_name,return_url)
+
+##############
+
+    ret = {}
+    ret["text"] = "Currently airing on Pac-12.com:"
+    ret["attachments"] = []
+    ret["attachments"].append({"fallback": "Hmm something didnt work right"})
+    ret["attachments"].append({"color": "#36a64f"})
+    ret["attachments"].append({"text": link})
+
+    return ret
